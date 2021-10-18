@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnBala : MonoBehaviour
+public class Cañon : MonoBehaviour
 {
     public GameObject bala;
     
