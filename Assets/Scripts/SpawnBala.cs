@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class SpawnBala : MonoBehaviour
 {
-    public GameObject Bala;
+    public GameObject bala;
     
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(Bala, transform.position , Bala.transform.rotation);
+        Disparo();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void Disparo()
+    {
+        Instantiate(bala, transform.position, transform.rotation);
     }
 }
