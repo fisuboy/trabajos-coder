@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cañon : MonoBehaviour
+public class Cannon : MonoBehaviour
 {
     public GameObject bala;
     
-    // Start is called before the first frame update
+    
     void Start()
     {
-        Disparo();
+        
     }
-
-    // Update is called once per frame
+        
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Disparo();
+        }
     }
 
     public void Disparo()
