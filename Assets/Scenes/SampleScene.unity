@@ -292,8 +292,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.16552447, y: -0.4919694, z: 0.095952965, w: -0.84932965}
-  m_LocalPosition: {x: -7.72, y: 4.8, z: -2.91}
+  m_LocalRotation: {x: 0.031991623, y: 0.7705557, z: 0.039026637, w: -0.6353719}
+  m_LocalPosition: {x: 5.415615, y: 2.1909814, z: 3.8473194}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -372,7 +372,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6821ff4220bcd8459f021f71aa0e6fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bala: {fileID: 5656071276661680302, guid: 6d94cde9fbbedf64c985b31d1622b905, type: 3}
+  bullet: {fileID: 5656071276661680302, guid: 6d94cde9fbbedf64c985b31d1622b905, type: 3}
+  timeToMove: 2
 --- !u!1 &1198072015
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,7 +674,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1587125993}
   m_Layer: 0
-  m_Name: "Ca\xF1on"
+  m_Name: Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

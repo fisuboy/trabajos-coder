@@ -4,24 +4,38 @@ using UnityEngine;
 
 public class Cannon : MonoBehaviour
 {
-    public GameObject bala;
-    
-    
+    public GameObject bullet;
+    public float timeToMove;
+    private float timeToMoveLeft;
+
     void Start()
     {
-        
+        ResetTimer();
     }
         
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        Temporizador();    
+    }
+
+    private void FireCannon()
+    {
+        Instantiate(bullet, transform.position, transform.rotation);
+    }
+
+    private void ResetTimer()
+    {
+        timeToMoveLeft = timeToMove;
+    }
+    private void Temporizador()
+    {
+        timeToMoveLeft -= Time.deltaTime;
+
+        if (timeToMoveLeft <= 0)
         {
-            Disparo();
+            FireCannon();
+            ResetTimer();
         }
     }
 
-    public void Disparo()
-    {
-        Instantiate(bala, transform.position, transform.rotation);
-    }
 }
