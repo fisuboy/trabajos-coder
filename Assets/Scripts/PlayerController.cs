@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private float mouseMovement;
     [SerializeField] float playerSpeed;
     [SerializeField] Vector3 initialPosition;
+    [SerializeField] Vector3 initialRotation;
+    
 
     void Start()
     {
@@ -15,6 +18,7 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
+        PlayerRotate();
         PlayerMove();
     }
 
@@ -23,5 +27,12 @@ public class PlayerController : MonoBehaviour
         float xMove = Input.GetAxis("Horizontal");
         float zMove = Input.GetAxis("Vertical");
         transform.Translate(playerSpeed * Time.deltaTime * new Vector3(xMove, 0, zMove));
+    }
+
+    private void PlayerRotate()
+    {
+        mouseMovement += Input.GetAxis("Mouse X");
+        Quaternion rotation = Quaternion.Euler(0, mouseMovement, 0);
+        transform.localRotation = rotation;
     }
 }
