@@ -4,44 +4,47 @@ using UnityEngine;
 
 public class EnemyRotation : MonoBehaviour
 {
-    private GameObject player;
-    [SerializeField] float speedEnemy;
+    [SerializeField] private GameObject player;
     [SerializeField] private TypesOfEnemy typeMovements;
-    enum TypesOfEnemy { Looker, Seeker}
+    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float minimunDistance;
+    [SerializeField] private float enemySpeed;
 
-    // Start is called before the first frame update
+    enum TypesOfEnemy { Looker, Seeker }
+
     void Start()
     {
         player = GameObject.Find("Fox");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        LookAtPlayer(player);
-        switch(typeMovements)
+        switch (typeMovements)
         {
             case TypesOfEnemy.Looker:
-                LookAtPlayer(player);
+                LookAtPlayer();
                 break;
             case TypesOfEnemy.Seeker:
                 MoveTowards();
                 break;
         }
     }
-    private void LookAtPlayer(GameObject lookObject)
-    {
-        Vector3 direction = lookObject.transform.position - transform.position;
-        Quaternion newRotation = Quaternion.LookRotation(direction);
-        transform.rotation = newRotation;
-    }
 
-    private void MoveTowards()
+    void MoveTowards()
     {
         Vector3 direction = player.transform.position - transform.position;
-        if (direction.magnitude > 10)
+        Quaternion lookAt = Quaternion.LookRotation(direction);
+        transform.rotation = lookAt;
+        if (direction.magnitude > minimunDistance)
         {
-            transform.position += speedEnemy * direction.normalized * Time.deltaTime;
+            transform.position += direction.normalized * enemySpeed * Time.deltaTime;
         }
     }
-}
+
+    void LookAtPlayer()
+    {
+        Quaternion lookAt = Quaternion.LookRotation(player.transform.position - transform.position);
+        Quaternion newRotation = Quaternion.Lerp(transform.rotation, lookAt, rotationSpeed * Time.deltaTime);
+        transform.rotation = newRotation;
+    }
+}   

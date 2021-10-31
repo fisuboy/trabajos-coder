@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3304597428285604755}
   - component: {fileID: 1790597945412881691}
   - component: {fileID: 3088181174000475405}
-  - component: {fileID: 4926755334727394855}
   m_Layer: 0
   m_Name: Rat1
   m_TagString: Untagged
@@ -83,15 +82,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4926755334727394855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8773373844160786454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3434cb6a3a0c0b74ab30a4e26c7cf292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
