@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float playerSpeed;
+    [SerializeField] float playerRotation;
     [SerializeField] Vector3 initialPosition;
 
     void Start()
@@ -16,12 +17,19 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerMove();
+        PlayerRotate();
     }
 
     private void PlayerMove()
     {
-        float xMove = Input.GetAxis("Horizontal");
+        //float xMove = Input.GetAxis("Horizontal");
         float zMove = Input.GetAxis("Vertical");
-        transform.Translate(playerSpeed * Time.deltaTime * new Vector3(xMove, 0, zMove));
+        transform.Translate(playerSpeed * Time.deltaTime * new Vector3(0, 0, zMove));
+    }
+
+    private void PlayerRotate()
+    {
+        float xMove = Input.GetAxis("Horizontal");
+        transform.Rotate(Vector3.up, xMove * playerRotation * Time.deltaTime);
     }
 }
