@@ -234,7 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xArea: 35
   zArea: 35
-  timeToChange: 200
+  timeToChange: 2
 --- !u!1 &428851950
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,6 +883,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8585083112647486866, guid: 0042bf2b39c276542aee987b2e4472ed, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585083112647486866, guid: 0042bf2b39c276542aee987b2e4472ed, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8585083112647486870, guid: 0042bf2b39c276542aee987b2e4472ed, type: 3}
