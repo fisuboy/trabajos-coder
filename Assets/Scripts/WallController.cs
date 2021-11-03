@@ -7,15 +7,15 @@ public class WallController : MonoBehaviour
     [SerializeField] private float xArea;
     [SerializeField] private float zArea;
     [SerializeField] private float timeToChange;
-    
+
     void Start()
     {
-        
+
     }
-        
+
     void Update()
     {
-        
+
     }
 
     private void MoveToRandomPosition()
@@ -30,14 +30,17 @@ public class WallController : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
-        while (timeToChange > 0)
+        if (collision.gameObject.tag == "Player")
         {
             timeToChange -= Time.deltaTime;
-            Debug.Log(timeToChange);
+            if (timeToChange <= 0)
+            {
+                MoveToRandomPosition();
+
+            }
+            Debug.Log("Player is touching the wall");
         }
-        MoveToRandomPosition();
-        
     }
 }

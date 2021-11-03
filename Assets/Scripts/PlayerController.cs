@@ -32,4 +32,8 @@ public class PlayerController : MonoBehaviour
             shrinked = true;
         }
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Player is colliding with " + collision.gameObject.name);
+    }
 }
