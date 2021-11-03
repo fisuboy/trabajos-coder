@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float playerSpeed;
     private bool shrinked = false;
+    private float portalTime;
+    private float cooldownTime = 0.5f;
 
     void Start()
     {
@@ -26,10 +28,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (shrinked == false)
+        if (Time.time > portalTime)
         {
-            transform.localScale /= 2;
-            shrinked = true;
+            if (shrinked == false)
+            {
+                transform.localScale /= 2;
+                shrinked = true;
+                portalTime = Time.time + cooldownTime;
+
+            }
+            else
+            {
+                transform.localScale *= 2;
+                shrinked = false;
+            }
         }
     }
     private void OnCollisionEnter(Collision collision)
