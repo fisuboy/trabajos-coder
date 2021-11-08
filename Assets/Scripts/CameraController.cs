@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-
-    [SerializeField] GameObject[] cameras;
+    [SerializeField] private GameObject[] cameras;
 
     void Start()
     {
-        
+        cameras[1].SetActive(false);
     }
 
-    
     void Update()
     {
         CameraManagement();
@@ -31,4 +29,18 @@ public class CameraController : MonoBehaviour
             cameras[1].SetActive(true);
         }
     }
+    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        cameras[0].SetActive(false);
+        cameras[1].SetActive(true);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        cameras[0].SetActive(true);
+        cameras[1].SetActive(false);
+    }
+    
 }

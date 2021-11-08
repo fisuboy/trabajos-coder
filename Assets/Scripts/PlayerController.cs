@@ -5,62 +5,91 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private float mouseMovement;
-    [SerializeField] float playerSpeed;
-<<<<<<< Updated upstream
-    [SerializeField] float playerRotation;
-    [SerializeField] Vector3 initialPosition;
+    [SerializeField] private float playerSpeed;
+    [SerializeField] private Animator animPlayer;
+    [SerializeField] private float rotationSpeed;
     
-=======
-    private bool shrinked = false;
-    private float portalTime;
-    private float cooldownTime = 0.5f;
-
->>>>>>> Stashed changes
     void Start()
     {
-        transform.position = initialPosition;
+        animPlayer.SetBool("run", false);
+        animPlayer.SetBool("jump", false);
     }
-    
-    
+
+
     void Update()
     {
-        PlayerRotate();
+        //PlayerRotate();
         PlayerMove();
+        //PlayerJump();
+        //PlayerRotateAndMove();
+
     }
 
     private void PlayerMove()
     {
-        float xMove = Input.GetAxis("Horizontal");
-        float zMove = Input.GetAxis("Vertical");
-        transform.Translate(playerSpeed * Time.deltaTime * new Vector3(xMove, 0, zMove));
+        float xMove = Input.GetAxisRaw("Horizontal");
+        float zMove = Input.GetAxisRaw("Vertical");
+        
+
+        if (xMove != 0 || zMove != 0)
+        {
+            animPlayer.SetBool("run", true);
+            transform.forward = Vector3.Lerp(transform.forward, new Vector3(xMove, 0, zMove), rotationSpeed * Time.deltaTime);
+            transform.position += playerSpeed * Time.deltaTime * transform.forward;
+        }
+        else
+        {
+            animPlayer.SetBool("run", false);
+        }
+    }
+
+    private void PlayerJump()
+    {
+        bool pJump = Input.GetKeyDown(KeyCode.Space);
+        if (pJump == true)
+        {
+            animPlayer.SetBool("jump", true);
+        }
+        else
+        {
+            animPlayer.SetBool("jump", false);
+        }
+        
     }
 
     private void PlayerRotate()
     {
-<<<<<<< Updated upstream
         mouseMovement += Input.GetAxis("Mouse X");
         Quaternion rotation = Quaternion.Euler(0, mouseMovement, 0);
         transform.localRotation = rotation;
-=======
-        if (Time.time > portalTime)
-        {
-            if (shrinked == false)
-            {
-                transform.localScale /= 2;
-                shrinked = true;
-                portalTime = Time.time + cooldownTime;
+    }
 
-            }
-            else
-            {
-                transform.localScale *= 2;
-                shrinked = false;
-            }
-        }
->>>>>>> Stashed changes
-    }
-    private void OnCollisionEnter(Collision collision)
+    private void PlayerRotateAndMove()
     {
-        Debug.Log("Player is colliding with " + collision.gameObject.name);
+        if (Input.GetKey(KeyCode.W) == true)
+        {
+            transform.forward = Vector3.Lerp(transform.forward, new Vector3(0, 0, 1), rotationSpeed * Time.deltaTime);
+            transform.position += playerSpeed * Time.deltaTime * transform.forward; 
+            
+        }
+        if (Input.GetKey(KeyCode.S) == true)
+        {
+            transform.forward = Vector3.Lerp(transform.forward, new Vector3(0, 0, -1), rotationSpeed * Time.deltaTime);
+            transform.position += playerSpeed * Time.deltaTime * transform.forward;
+           
+        }
+        if (Input.GetKey(KeyCode.D) == true)
+        {
+            transform.forward = Vector3.Lerp(transform.forward, new Vector3(1, 0, 0), rotationSpeed * Time.deltaTime);
+            transform.position += playerSpeed * Time.deltaTime * transform.forward;
+           
+        }
+        if (Input.GetKey(KeyCode.A) == true)
+        {
+            transform.forward = Vector3.Lerp(transform.forward, new Vector3(-1, 0, 0), rotationSpeed * Time.deltaTime);
+            transform.position += playerSpeed * Time.deltaTime * transform.forward;
+           
+        }
+        
     }
-}
+}    
