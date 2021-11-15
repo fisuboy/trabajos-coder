@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 95025375702580604}
   - component: {fileID: 6467111772644487825}
   m_Layer: 0
-  m_Name: Polygonal Metalon Red
+  m_Name: Scarab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

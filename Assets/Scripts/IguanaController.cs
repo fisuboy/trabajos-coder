@@ -23,29 +23,26 @@ public class IguanaController : MonoBehaviour
     
     private void MoveAndRotate()
     {
-        float xRotate = Input.GetAxis("Horizontal");
+        float xRotate = Input.GetAxisRaw("Horizontal");
         float zMove = Input.GetAxisRaw("Vertical");
         animPlayer.SetFloat("Forward", zMove);
         cameraAxisX += xRotate;
+
+        Quaternion angulo = Quaternion.Euler(0, cameraAxisX * speedTurn, 0);
+        transform.rotation = angulo;
+        animPlayer.SetFloat("Turn", xRotate);
 
         if (zMove != 0)
         {
             if (zMove >= 0)
             {
                 rbIguana.AddRelativeForce(Vector3.forward * playerSpeed * zMove, ForceMode.Force);
-                if (xRotate != 0)
-                {
-                    
-                }
+                
             }
             else
             {
                 rbIguana.AddRelativeForce(Vector3.forward * (playerSpeed/2) * zMove, ForceMode.Force);
             }
-            
-            Quaternion angulo = Quaternion.Euler(0, cameraAxisX * speedTurn, 0);
-            transform.rotation = angulo;
-            animPlayer.SetFloat("Turn", xRotate);
         }
     }
 

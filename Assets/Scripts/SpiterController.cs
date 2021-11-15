@@ -24,7 +24,7 @@ public class SpiterController : MonoBehaviour
 
     void Start()
     {
-        transform.position = new Vector3(transform.position.x, -1, transform.position.z);
+        transform.position = new Vector3(transform.position.x, 9f, transform.position.z);
     }
 
     void Update()
@@ -103,12 +103,12 @@ public class SpiterController : MonoBehaviour
 
     private void Emerge()
     {
-        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+        transform.position = new Vector3(transform.position.x, 10.5f, transform.position.z);
     }
 
     private void Sumerge()
     {
-        transform.position = new Vector3(transform.position.x, -1, transform.position.z);
+        transform.position = new Vector3(transform.position.x, 9f, transform.position.z);
     }
 
     private void ChangePosition()
