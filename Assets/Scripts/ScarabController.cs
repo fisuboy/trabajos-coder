@@ -29,7 +29,7 @@ public class ScarabController : MonoBehaviour
 
     void Start()
     {
-
+       
     }
 
     void Update()

@@ -15,6 +15,7 @@ public class SpiterController : MonoBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject shootOrigen;
     [SerializeField] private Transform[] spawns;
+    [SerializeField] private Animator anim;
 
     private float timeToShoot = 0f;
     private float timeToChange = 0f;
@@ -24,7 +25,7 @@ public class SpiterController : MonoBehaviour
 
     void Start()
     {
-        transform.position = new Vector3(transform.position.x, 9f, transform.position.z);
+        transform.position = new Vector3(transform.position.x, -1.5f, transform.position.z);
     }
 
     void Update()
@@ -43,8 +44,12 @@ public class SpiterController : MonoBehaviour
             LookAtPlayer();
             timeToChange = 0;
             
-            if (canShoot)
+            if (canShoot) 
+            {
+                anim.SetTrigger("Attack");
                 Shoot();
+            }
+                
             
             else
                 timeToShoot += Time.deltaTime;
@@ -103,12 +108,12 @@ public class SpiterController : MonoBehaviour
 
     private void Emerge()
     {
-        transform.position = new Vector3(transform.position.x, 10.5f, transform.position.z);
+        transform.position = new Vector3(transform.position.x, 0.14f, transform.position.z);
     }
 
     private void Sumerge()
     {
-        transform.position = new Vector3(transform.position.x, 9f, transform.position.z);
+        transform.position = new Vector3(transform.position.x, -1.5f, transform.position.z);
     }
 
     private void ChangePosition()

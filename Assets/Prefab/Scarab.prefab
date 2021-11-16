@@ -174,7 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoint: {fileID: 0}
   reference: {fileID: 0}
-  player: {fileID: 0}
+  player: {fileID: 141256, guid: b4806bcfd71324778b360c0299195b34, type: 3}
   aloneSpeed: 3
   chaseSpeed: 5
   minimumDistance: 0.5
