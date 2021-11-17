@@ -18,6 +18,7 @@ public class ScarabController : MonoBehaviour
     [SerializeField] private float xArea;
     [SerializeField] private float zArea;
     [SerializeField] Animator anim;
+    [SerializeField] private int hp = 5;
 
     private float timeToAtack = 2f;
     private float timeToChange = 0f;
@@ -74,6 +75,12 @@ public class ScarabController : MonoBehaviour
             anim.SetBool("isRun", false);
             AloneMove();
             CreateNewWay();
+        }
+        if (hp <= 0)
+        {
+            Debug.Log("esta muerto");
+
+
         }
     }
 
@@ -136,4 +143,5 @@ public class ScarabController : MonoBehaviour
         
         Gizmos.DrawWireSphere(transform.position, visionRange);
     }
+  
 }

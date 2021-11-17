@@ -1277,6 +1277,7 @@ GameObject:
   - component: {fileID: 5405928}
   - component: {fileID: 13662094}
   - component: {fileID: 5242940478346920683}
+  - component: {fileID: 3584525102076725776}
   m_Layer: 0
   m_Name: Iguana
   m_TagString: Untagged
@@ -1366,6 +1367,21 @@ MonoBehaviour:
   playerSpeed: 50
   animPlayer: {fileID: 9540064}
   speedTurn: 2
+  jumpForce: 0
+--- !u!136 &3584525102076725776
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141256}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.018748336
+  m_Height: 0.049999997
+  m_Direction: 2
+  m_Center: {x: 0.0822351, y: 0.0051542, z: 0.14135908}
 --- !u!1 &142006
 GameObject:
   m_ObjectHideFlags: 0

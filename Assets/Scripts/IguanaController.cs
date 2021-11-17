@@ -69,6 +69,7 @@ public class IguanaController : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
+    //hacer esto con switch para distintos layers
     {
         if (other.gameObject.layer == 6)
         {
@@ -79,9 +80,12 @@ public class IguanaController : MonoBehaviour
             GetDamage();
             Debug.Log("CACTUS DAMAGE");
         }
-        
+        if (other.gameObject.layer == 9)
+        {
+            GameManager.instance.AddScore();
+            Debug.Log("HIT ENEMY Score is: " + GameManager.GetScore());
+        }
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer == 6)
@@ -94,4 +98,5 @@ public class IguanaController : MonoBehaviour
     {
         life--;
     }
+
 }
