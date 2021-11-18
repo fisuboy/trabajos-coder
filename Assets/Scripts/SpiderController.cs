@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpiderController : MonoBehaviour
 {
     private Rigidbody rbSpider;
-    private float jumpForce = 1;
+    private float jumpForce = 300;
     [SerializeField] private GameObject player;
     [SerializeField] private float lerpSpeed;
     [SerializeField] private float chaseSpeed;
@@ -18,7 +18,7 @@ public class SpiderController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Jump();
+        ChasePlayer();
     }
     private void ChasePlayer()
     {

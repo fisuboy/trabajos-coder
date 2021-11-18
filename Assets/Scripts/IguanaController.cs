@@ -10,7 +10,7 @@ public class IguanaController : MonoBehaviour
     [SerializeField] private Animator animPlayer;
     [SerializeField] private float speedTurn;
     [SerializeField] private float jumpForce;
-    
+    [SerializeField] LayerMask groundLayer;
     private Rigidbody rbIguana;
     private bool isGrounded = true;
 
@@ -23,7 +23,7 @@ public class IguanaController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (isGrounded)
+            if (IsGrounded())
             {
                 
                 Jump();
@@ -71,10 +71,10 @@ public class IguanaController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     //hacer esto con switch para distintos layers
     {
-        if (other.gameObject.layer == 6)
+        /*if (other.gameObject.layer == 6)
         {
             isGrounded = true;
-        }
+        }*/
         if (other.gameObject.layer == 10)
         {
             GetDamage();
@@ -86,12 +86,20 @@ public class IguanaController : MonoBehaviour
             Debug.Log("HIT ENEMY Score is: " + GameManager.GetScore());
         }
     }
-    private void OnTriggerExit(Collider other)
+    /*private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer == 6)
         {
             isGrounded = false;
         }
+    }*/
+    private bool IsGrounded()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, 0.5f, groundLayer))
+        {
+            return true;
+        }
+        else return false;
     }
 
     public void GetDamage()
