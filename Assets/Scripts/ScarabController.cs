@@ -37,10 +37,8 @@ public class ScarabController : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, player.transform.position) <= visionRange)
             inRange = true;
-        
         else
             inRange = false;
-        
 
         if (inRange)
         {

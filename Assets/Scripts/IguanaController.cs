@@ -12,7 +12,7 @@ public class IguanaController : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] LayerMask groundLayer;
     private Rigidbody rbIguana;
-    private bool isGrounded = true;
+    //private bool isGrounded = true;
 
     void Start()
     {
@@ -22,15 +22,8 @@ public class IguanaController : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-        {
             if (IsGrounded())
-            {
-                
                 Jump();
-            }
-
-        }
-
     }
 
     void FixedUpdate()
@@ -50,17 +43,10 @@ public class IguanaController : MonoBehaviour
         animPlayer.SetFloat("Turn", xRotate);
 
         if (zMove != 0)
-        {
             if (zMove >= 0)
-            {
                 rbIguana.AddRelativeForce(Vector3.forward * playerSpeed * zMove, ForceMode.Force);
-                
-            }
             else
-            {
                 rbIguana.AddRelativeForce(Vector3.forward * (playerSpeed/2) * zMove, ForceMode.Force);
-            }
-        }
     }
     private void Jump()
     {
@@ -96,10 +82,9 @@ public class IguanaController : MonoBehaviour
     private bool IsGrounded()
     {
         if (Physics.Raycast(transform.position, Vector3.down, 0.5f, groundLayer))
-        {
             return true;
-        }
-        else return false;
+        else 
+            return false;
     }
 
     public void GetDamage()
