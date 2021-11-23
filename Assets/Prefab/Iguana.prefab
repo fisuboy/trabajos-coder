@@ -1368,6 +1368,9 @@ MonoBehaviour:
   animPlayer: {fileID: 9540064}
   speedTurn: 2
   jumpForce: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!136 &3584525102076725776
 CapsuleCollider:
   m_ObjectHideFlags: 0
