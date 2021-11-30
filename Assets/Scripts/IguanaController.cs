@@ -4,26 +4,27 @@ using UnityEngine;
 
 public class IguanaController : MonoBehaviour
 {
-    [SerializeField] private int life;
-    [SerializeField] private float cameraAxisX;
-    [SerializeField] private float playerSpeed;
     [SerializeField] private Animator animPlayer;
-    [SerializeField] private float speedTurn;
-    [SerializeField] private float jumpForce;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] GeneralData data;
+    [SerializeField] Transform camera;
+    public float turnSmoothTime;
+    private float turnSmoothVelocity;
+
     private Rigidbody rbIguana;
+    //private float cameraAxisX = 0;
     //private bool isGrounded = true;
 
     void Start()
     {
-        rbIguana = transform.GetComponent<Rigidbody>();
+        rbIguana = GetComponent<Rigidbody>();
         
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        /*if (Input.GetKeyDown(KeyCode.Space))
             if (IsGrounded())
-                Jump();
+                Jump();*/
     }
 
     void FixedUpdate()
@@ -33,25 +34,51 @@ public class IguanaController : MonoBehaviour
     
     private void MoveAndRotate()
     {
-        float xRotate = Input.GetAxis("Horizontal");
-        float zMove = Input.GetAxisRaw("Vertical");
-        animPlayer.SetFloat("Forward", zMove);
-        cameraAxisX += xRotate;
+        /* float xRotate = Input.GetAxis("Horizontal");
+         float zMove = Input.GetAxis("Vertical");
+         
+         cameraAxisX += xRotate;
 
-        Quaternion angulo = Quaternion.Euler(0, cameraAxisX * speedTurn, 0);
-        transform.rotation = angulo;
-        animPlayer.SetFloat("Turn", xRotate);
+         Quaternion angulo = Quaternion.Euler(0, cameraAxisX * data.speedTurn, 0);
+         transform.rotation = angulo;
+         animPlayer.SetFloat("Turn", xRotate);
 
-        if (zMove != 0)
-            if (zMove >= 0)
-                rbIguana.AddRelativeForce(Vector3.forward * playerSpeed * zMove, ForceMode.Force);
-            else
-                rbIguana.AddRelativeForce(Vector3.forward * (playerSpeed/2) * zMove, ForceMode.Force);
+         if (zMove != 0)
+             if (zMove >= 0)
+                 rbIguana.AddRelativeForce(Vector3.forward * data.playerSpeed * zMove, ForceMode.Force);
+             else
+                 rbIguana.AddRelativeForce(Vector3.forward * (data.playerSpeed/2) * zMove, ForceMode.Force);*/
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        //animPlayer.SetFloat("Forward", vertical);
+        //animPlayer.SetFloat("Turn", horizontal);
+        animPlayer.SetBool("isRun", false);
+
+        if (direction.magnitude >= 0.1f)
+        {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            transform.position += moveDir * data.speed * Time.deltaTime;
+            //rbIguana.AddRelativeForce(moveDir * data.playerSpeed, ForceMode.Force);
+            animPlayer.SetBool("isRun", true);
+        }
+
     }
-    private void Jump()
+    /*private void Jump()
     {
         Debug.Log("is jumping");
-        rbIguana.AddForce(0, 1 * jumpForce, 0);
+        rbIguana.AddForce(0, 1 * data.jumpForce, 0);
+    }*/
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.CompareTag("Bullet"))
+        {
+            data.life--;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -89,7 +116,7 @@ public class IguanaController : MonoBehaviour
 
     public void GetDamage()
     {
-        life--;
+        data.life--;
     }
 
 }

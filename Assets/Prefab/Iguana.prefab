@@ -1277,7 +1277,7 @@ GameObject:
   - component: {fileID: 5405928}
   - component: {fileID: 13662094}
   - component: {fileID: 5242940478346920683}
-  - component: {fileID: 3584525102076725776}
+  - component: {fileID: 6424077755778132505}
   m_Layer: 0
   m_Name: Iguana
   m_TagString: Untagged
@@ -1363,7 +1363,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 0
-  cameraAxisX: 0
   playerSpeed: 50
   animPlayer: {fileID: 9540064}
   speedTurn: 2
@@ -1371,20 +1370,20 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
---- !u!136 &3584525102076725776
-CapsuleCollider:
+--- !u!114 &6424077755778132505
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141256}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.018748336
-  m_Height: 0.049999997
-  m_Direction: 2
-  m_Center: {x: 0.0822351, y: 0.0051542, z: 0.14135908}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd69657942c87304eacb52941c9fd203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tail: []
+  data: {fileID: 0}
 --- !u!1 &142006
 GameObject:
   m_ObjectHideFlags: 0
