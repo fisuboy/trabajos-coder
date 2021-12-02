@@ -7,6 +7,7 @@ public class GeneralData : ScriptableObject
 {
     public int life;
     public float speed;
+    public float visionRange;
     public float speedTurn;
     //public float jumpForce;
 }

@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 061b6bf1fdc33c24d86f1c5b5f4fa4de, type: 3}
-  m_Name: ScarabData
+  m_Script: {fileID: 11500000, guid: 2e90d12473413324da3ab4ccf24f88b7, type: 3}
+  m_Name: ScarabSpecificData
   m_EditorClassIdentifier: 
-  life: 50
-  speed: 5
-  visionRange: 4
-  speedTurn: 2
+  xArea: 10
+  zArea: 10
+  aloneSpeed: 2
+  chaseSpeed: 4
+  lerpSpeed: 5
+  distanceToPlayer: 2.7
+  hitCooldown: 2
+  changeCooldown: 5

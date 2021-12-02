@@ -20,6 +20,7 @@ public class ScarabController : MonoBehaviour
     [SerializeField] Animator anim;
     [SerializeField] private int hp = 5;
 
+    private Rigidbody rb;
     private float timeToAtack = 2f;
     private float timeToChange = 0f;
     private float xIndex;
@@ -30,7 +31,7 @@ public class ScarabController : MonoBehaviour
 
     void Start()
     {
-       
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -88,7 +89,9 @@ public class ScarabController : MonoBehaviour
         Vector3 direction = deltaVector.normalized;
         float distance = deltaVector.magnitude;
         transform.forward = Vector3.Lerp(transform.forward, direction, lerpSpeed * Time.deltaTime);
-        transform.position += transform.forward * aloneSpeed * Time.deltaTime;
+        //transform.position += transform.forward * aloneSpeed * Time.deltaTime;
+
+        rb.AddRelativeForce(transform.forward, ForceMode.Force);
     }
 
     private void ChasePlayer()
