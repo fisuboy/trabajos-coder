@@ -5,18 +5,26 @@ using UnityEngine;
 public class IguanaLifeManager : MonoBehaviour
 {
     [SerializeField] private Transform[] tail;
-    [SerializeField] private GeneralData data;
-    
+    private int iguanaLife;    
     private int tailIndex;
 
+    private void Awake()
+    {
+        IguanaController.onLifeChange += OnLifeChangeHandler;
+    }
     void Start()
     {
-        data.life = 6;
-    }
         
+    }
+
+    private void OnLifeChangeHandler(int life)
+    {
+       iguanaLife = life;
+    }
+
     void Update()
     {
-        switch (data.life)
+        switch (iguanaLife)
         {
             case 6:
                 tailIndex = 0;
@@ -80,13 +88,5 @@ public class IguanaLifeManager : MonoBehaviour
                 break;
         }
 
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            data.life--;
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            data.life++;
-        }
     }
 }

@@ -8,6 +8,8 @@ public class LandingController : MonoBehaviour
 {
     
     [SerializeField] private InputField inputUsername;
+    [SerializeField] private Sprite sprite;
+    [SerializeField] private Button button;
     
     public void OnChangeInputUsername()
     {
@@ -23,4 +25,9 @@ public class LandingController : MonoBehaviour
     {
         SceneManager.LoadScene("PreEntrega");
     }
+
+    //public void OnClickButtonChange()
+    //{
+    //    //button.
+    //}
 }

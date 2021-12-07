@@ -10,4 +10,5 @@ public class SpiterSpecificData : ScriptableObject
     public float shootForce;
     public int shootCooldown;
     public int changeCooldown;
+    public float shootFix;
 }  

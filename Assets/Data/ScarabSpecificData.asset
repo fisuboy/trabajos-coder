@@ -17,6 +17,6 @@ MonoBehaviour:
   aloneSpeed: 2
   chaseSpeed: 4
   lerpSpeed: 5
-  distanceToPlayer: 2.7
-  hitCooldown: 2
+  distanceToPlayer: 3
+  hitCooldown: 0.5
   changeCooldown: 5

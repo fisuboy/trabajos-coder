@@ -63,9 +63,10 @@ public class SpiterEnemy : Enemies
     {
         canShoot = false;
         timeToShoot = 0;
-        Vector3 playerDirection = player.transform.position - transform.position;
+        Vector3 playerDirection = (player.transform.position - transform.position).normalized;
+        Vector3 fixedPlayerDirection = new Vector3(playerDirection.x, playerDirection.y - spiterData.shootFix, playerDirection.z);
         GameObject bulletInstantiate = Instantiate(bullet, shootOrigen.transform.position, transform.rotation);
-        bulletInstantiate.GetComponent<Rigidbody>().AddForce(playerDirection.normalized * spiterData.shootForce, ForceMode.Impulse);
+        bulletInstantiate.GetComponent<Rigidbody>().AddForce(fixedPlayerDirection * spiterData.shootForce, ForceMode.Impulse);
     }
 
     private void LookAtPlayer()

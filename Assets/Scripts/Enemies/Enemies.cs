@@ -8,11 +8,30 @@ public class Enemies : MonoBehaviour
     [SerializeField] protected Transform player;
     [SerializeField] protected Animator anim;
     protected Rigidbody rb;
+    protected float turnSmoothTime = 0.1f;
+    protected float turnSmoothVelocity;
     protected bool inRange = false;
-        
+    
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    protected virtual void LookAtTarget(Transform target)
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+    }
+    protected virtual void MoveToTarget(Transform target, float speed)
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        transform.position += moveDir * speed * Time.deltaTime;
     }
 
     protected virtual void Patrol()
@@ -34,9 +53,7 @@ public class Enemies : MonoBehaviour
     {
 
     }
-
-   
-
+    
     protected void OnDrawGizmos()
     {
         if (inRange)

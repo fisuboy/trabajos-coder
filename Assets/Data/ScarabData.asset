@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 50
   speed: 5
-  visionRange: 4
+  visionRange: 8
   speedTurn: 2

@@ -539,6 +539,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputUsername: {fileID: 1913268243}
+  sprite: {fileID: 21300000, guid: 2e5f47e2f71128f4282c0a4a67288751, type: 3}
+  button: {fileID: 1543765522}
 --- !u!1 &1296924621
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,6 +703,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1265442372}
         m_TargetAssemblyTypeName: LandingController, Assembly-CSharp
         m_MethodName: OnClickPlay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1265442372}
+        m_TargetAssemblyTypeName: LandingController, Assembly-CSharp
+        m_MethodName: OnClickButtonChange
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

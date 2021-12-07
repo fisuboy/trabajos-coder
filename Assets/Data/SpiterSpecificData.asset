@@ -16,3 +16,4 @@ MonoBehaviour:
   shootForce: 10
   shootCooldown: 1
   changeCooldown: 10
+  shootFix: 0.15

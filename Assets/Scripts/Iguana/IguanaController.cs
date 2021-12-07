@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class IguanaController : MonoBehaviour
 {
@@ -12,19 +13,37 @@ public class IguanaController : MonoBehaviour
     private float turnSmoothVelocity;
 
     private Rigidbody rbIguana;
+    public static event Action<int> onLifeChange;
     //private float cameraAxisX = 0;
     //private bool isGrounded = true;
 
+    private void Awake()
+    {
+        ScarabEnemy.onHit += OnHitHandler;
+        EagleTwigQuest.onQuestComplete += OnQuestCompleteHandler;
+    }
     void Start()
     {
         rbIguana = GetComponent<Rigidbody>();
-        
+        data.life = 6;
+        onLifeChange?.Invoke(data.life);
     }
     private void Update()
     {
         /*if (Input.GetKeyDown(KeyCode.Space))
             if (IsGrounded())
                 Jump();*/
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            data.life--;
+            onLifeChange?.Invoke(data.life);
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            data.life++;
+            onLifeChange?.Invoke(data.life);
+        }
     }
 
     void FixedUpdate()
@@ -77,7 +96,7 @@ public class IguanaController : MonoBehaviour
     {
         if(collision.transform.CompareTag("Bullet"))
         {
-            data.life--;
+            GetDamage();
         }
     }
 
@@ -117,6 +136,16 @@ public class IguanaController : MonoBehaviour
     public void GetDamage()
     {
         data.life--;
+        onLifeChange?.Invoke(data.life);
     }
 
+    private void OnHitHandler()
+    {
+        GetDamage();
+    }
+
+    private void OnQuestCompleteHandler()
+    {
+        Debug.Log("Quest Complete");
+    }
 }

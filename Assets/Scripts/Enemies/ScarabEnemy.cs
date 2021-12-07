@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ScarabEnemy : Enemies
 {
@@ -9,10 +10,14 @@ public class ScarabEnemy : Enemies
     [SerializeField] ScarabSpecificData scarabData;
     private float xIndex;
     private float zIndex;
-    private float timeToChange = 0f;
+    //private float timeToChange = 0f;
     private float timeToAtack = 2f;
-    private bool canChange = false;
-    private bool canAtack = false;
+    //private bool canChange = false;
+    private bool canAtack = true;
+    private int i;
+
+    public static event Action onHit;
+    //public static event Action onAproach;
     
 
     private void Update()
@@ -28,51 +33,54 @@ public class ScarabEnemy : Enemies
             {
                 anim.SetBool("isRun", true);
                 anim.SetBool("isIdle", false);
-                ChasePlayer();
+                MoveToTarget(player, scarabData.chaseSpeed);
             }
             else
             {
+                if (timeToAtack >= scarabData.hitCooldown)
+                    canAtack = true;
+
                 if (canAtack)
                 {
                     anim.SetBool("isIdle", true);
                     anim.SetTrigger("Attack");
                     AttackPlayer();
                 }
-
                 else
                 {
                     anim.SetBool("isIdle", true);
                     timeToAtack += Time.deltaTime;
+                    LookAtTarget(player);
                 }
-
-
-                if (timeToAtack >= scarabData.hitCooldown)
-                    canAtack = true;
             }
         }
         else
         {
             anim.SetBool("isRun", false);
-            Patrol();
+            MoveToTarget(waypoint, scarabData.aloneSpeed);
             CreateNewWay();
         }
        
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            onHit?.Invoke();
+        }
+        
+    }
+
     protected override void ChasePlayer()
     {
-        Vector3 direction = (player.transform.position - transform.position).normalized;
-        transform.forward = Vector3.Lerp(transform.forward, direction, scarabData.lerpSpeed * Time.deltaTime);
-        transform.position += transform.forward * scarabData.chaseSpeed * Time.deltaTime;
+        
+
     }
 
     protected override void Patrol()
     {
-        Vector3 deltaVector = waypoint.position - transform.position;
-        Vector3 direction = (waypoint.position - transform.position).normalized;
-        float distance = deltaVector.magnitude;
-        transform.forward = Vector3.Lerp(transform.forward, direction, scarabData.lerpSpeed * Time.deltaTime);
-        transform.position += transform.forward * scarabData.aloneSpeed * Time.deltaTime;
+        
     }
 
     protected override void AttackPlayer()
@@ -85,25 +93,9 @@ public class ScarabEnemy : Enemies
     {
         if (Vector3.Distance(transform.position, waypoint.transform.position) <= 0.2f)
         {
-            timeToChange = 0;
-            xIndex = Random.Range((reference.transform.position.x - (scarabData.xArea / 2)), (reference.transform.position.x + (scarabData.xArea / 2)));
-            zIndex = Random.Range((reference.transform.position.z - (scarabData.zArea / 2)), (reference.transform.position.z + (scarabData.zArea / 2)));
+            xIndex = UnityEngine.Random.Range((reference.transform.position.x - (scarabData.xArea / 2)), (reference.transform.position.x + (scarabData.xArea / 2)));
+            zIndex = UnityEngine.Random.Range((reference.transform.position.z - (scarabData.zArea / 2)), (reference.transform.position.z + (scarabData.zArea / 2)));
             waypoint.transform.position = new Vector3(xIndex, waypoint.transform.position.y, zIndex);
         }
-
-        if (canChange)
-        {
-            canChange = false;
-            timeToChange = 0;
-            xIndex = Random.Range((reference.transform.position.x - (scarabData.xArea / 2)), (reference.transform.position.x + (scarabData.xArea / 2)));
-            zIndex = Random.Range((reference.transform.position.z - (scarabData.zArea / 2)), (reference.transform.position.z + (scarabData.zArea / 2)));
-            waypoint.transform.position = new Vector3(xIndex, waypoint.transform.position.y, zIndex);
-        }
-        else
-            timeToChange += Time.deltaTime;
-        
-
-        if (timeToChange >= scarabData.changeCooldown)
-            canChange = true;
-    }  
+    }
 }
