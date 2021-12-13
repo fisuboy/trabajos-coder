@@ -12,11 +12,7 @@ public class IguanaLifeManager : MonoBehaviour
     {
         IguanaController.onLifeChange += OnLifeChangeHandler;
     }
-    void Start()
-    {
-        
-    }
-
+    
     private void OnLifeChangeHandler(int life)
     {
        iguanaLife = life;

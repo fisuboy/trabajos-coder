@@ -9,5 +9,5 @@ public class GeneralData : ScriptableObject
     public float speed;
     public float visionRange;
     public float speedTurn;
-    //public float jumpForce;
+    public float jumpForce;
 }

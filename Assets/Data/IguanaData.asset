@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: IguanaData
   m_EditorClassIdentifier: 
   life: 6
-  speed: 4
+  speed: 120
   visionRange: 0
   speedTurn: 3
+  jumpForce: 5
