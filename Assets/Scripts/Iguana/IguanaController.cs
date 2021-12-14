@@ -9,30 +9,43 @@ public class IguanaController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] GeneralData data;
     [SerializeField] Transform _camera;
-    [SerializeField] private float raycastLarge;
-    [SerializeField] private float turnSmoothTime;
     [SerializeField] private Transform groundCheck;
-    private float turnSmoothVelocity;
-    //private bool isGrounded = true;
-
     private Rigidbody rbIguana;
-    private SphereCollider col;
+    private float turnSmoothTime = .1f;
+    private float turnSmoothVelocity;
+    private bool inHighSunZone = false;
+
+    //Events
     public static event Action<int> onLifeChange;
-    
+    public static event Action onHighSunZoneEnter;
+    public static event Action onHighSunZoneExit;
+
     private void Awake()
     {
-        ScarabEnemy.onHit += OnHitHandler;
-        EagleTwigQuest.onQuestComplete += OnQuestCompleteHandler;
+        HornAttackController.onHit += OnHitHandler;
     }
     void Start()
     {
         rbIguana = GetComponent<Rigidbody>();
-        col = GetComponent<SphereCollider>();
         data.life = 6;
         onLifeChange?.Invoke(data.life);
+        transform.position = new Vector3(280f, 50f, 38f);
+        Quaternion initialRotation = Quaternion.Euler(0f, -62f, 0);
+        transform.rotation = initialRotation;
     }
     private void Update()
     {
+        if (IsGrounded() && Input.GetButtonDown("Jump"))
+            Jump();
+
+        if (inHighSunZone)
+            onHighSunZoneEnter?.Invoke();
+        else
+            onHighSunZoneExit?.Invoke();
+
+        if (Input.GetKey(KeyCode.LeftShift))
+            SpeedBoost();
+         
         if (Input.GetKeyDown(KeyCode.M))
         {
             data.life--;
@@ -44,16 +57,13 @@ public class IguanaController : MonoBehaviour
             onLifeChange?.Invoke(data.life);
         }
     }
-
+    
     void FixedUpdate()
     {
-        if (IsGrounded() && Input.GetButtonDown("Jump"))
-        {
-            Jump();
-        }
+        
         MoveAndRotate();
     }
-    
+
     private void MoveAndRotate()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -78,44 +88,26 @@ public class IguanaController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics.CheckSphere(groundCheck.position, .1f, groundLayer);      
-        //return Physics.CheckCapsule(col.bounds.center, new Vector3(col.bounds.center.x, col.bounds.min.y, col.bounds.center.z), col.radius * .9f, groundLayer);
+        return Physics.CheckSphere(groundCheck.position, .1f, groundLayer);
     }
 
-   private void OnCollisionEnter(Collision collision)
+    private void SpeedBoost()
     {
-        if(collision.transform.CompareTag("Bullet"))
+        data.speed *= 2;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Bullet"))
         {
             GetDamage();
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    //hacer esto con switch para distintos layers
-    {
-        //if (other.gameObject.layer == 6)
-       // {
-        //    isGrounded = true;
-       // }
-        if (other.gameObject.layer == 10)
+        if (collision.gameObject.layer == 10)
         {
             GetDamage();
             Debug.Log("CACTUS DAMAGE");
         }
-        if (other.gameObject.layer == 9)
-        {
-            GameManager.instance.AddScore();
-            Debug.Log("HIT ENEMY Score is: " + GameManager.GetScore());
-        }
     }
-    /*private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == 6)
-        {
-            isGrounded = false;
-        }
-    }*/
-   
 
     public void GetDamage()
     {
@@ -123,13 +115,14 @@ public class IguanaController : MonoBehaviour
         onLifeChange?.Invoke(data.life);
     }
 
+    public void HighSunZone()
+    {
+        inHighSunZone = !inHighSunZone;
+        Debug.Log(inHighSunZone);
+    }
+
     private void OnHitHandler()
     {
         GetDamage();
-    }
-
-    private void OnQuestCompleteHandler()
-    {
-        Debug.Log("Quest Complete");
     }
 }

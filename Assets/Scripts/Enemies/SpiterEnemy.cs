@@ -12,7 +12,7 @@ public class SpiterEnemy : Enemies
     private float timeToChange = 0f;
     private bool canShoot = false;
     private bool canChange = false;
-             
+        
     void Update()
     {
         if (Vector3.Distance(transform.position, player.transform.position) <= data.visionRange)
@@ -55,7 +55,6 @@ public class SpiterEnemy : Enemies
 
             if (timeToChange >= spiterData.changeCooldown)
                 canChange = true;
-
         }
     }
 
@@ -79,12 +78,12 @@ public class SpiterEnemy : Enemies
 
     private void Emerge()
     {
-        transform.position = new Vector3(transform.position.x, 0.14f, transform.position.z);
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
     private void Sumerge()
     {
-        transform.position = new Vector3(transform.position.x, -1.5f, transform.position.z);
+        transform.position = new Vector3(transform.position.x, -46.9f, transform.position.z);
     }
 
     private void ChangePosition()

@@ -23,7 +23,7 @@ public class LandingController : MonoBehaviour
 
     public void OnClickPlay()
     {
-        SceneManager.LoadScene("PreEntrega");
+        SceneManager.LoadScene(1);
     }
 
     //public void OnClickButtonChange()

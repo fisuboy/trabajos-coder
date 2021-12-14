@@ -14,9 +14,9 @@ public class ScarabEnemy : Enemies
     private float timeToAtack = 2f;
     //private bool canChange = false;
     private bool canAtack = true;
-    private int i;
+    //private int i;
 
-    public static event Action onHit;
+    
     //public static event Action onAproach;
     
 
@@ -61,15 +61,6 @@ public class ScarabEnemy : Enemies
             CreateNewWay();
         }
        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            onHit?.Invoke();
-        }
-        
     }
 
     protected override void ChasePlayer()
