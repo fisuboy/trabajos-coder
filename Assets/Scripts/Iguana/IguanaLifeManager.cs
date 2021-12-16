@@ -83,6 +83,5 @@ public class IguanaLifeManager : MonoBehaviour
                 Debug.Log("VIDA FUERA DEL RANGO");
                 break;
         }
-
     }
 }

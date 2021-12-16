@@ -1368,8 +1368,7 @@ MonoBehaviour:
     m_Bits: 0
   data: {fileID: 0}
   _camera: {fileID: 0}
-  raycastLarge: 0
-  turnSmoothTime: 0
+  groundCheck: {fileID: 0}
 --- !u!114 &6424077755778132505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1875,7 +1874,7 @@ Transform:
   m_GameObject: {fileID: 153298}
   m_LocalRotation: {x: -0.000000005065556, y: 0.0000008344379, z: -0.0068055345, w: 0.9999769}
   m_LocalPosition: {x: -0, y: 0.061641295, z: -1.15505826e-14}
-  m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 491818}
   m_Father: {fileID: 416068}
@@ -2097,7 +2096,7 @@ Transform:
   m_GameObject: {fileID: 162392}
   m_LocalRotation: {x: 0.0000000038256713, y: -0.00000023894768, z: -0.027352007, w: 0.99962586}
   m_LocalPosition: {x: -0.000000006055832, y: 0.065057956, z: -2.8876456e-15}
-  m_LocalScale: {x: 0.99999994, y: 0.9999999, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 441546}
   m_Father: {fileID: 450320}
@@ -3084,7 +3083,7 @@ Transform:
   m_GameObject: {fileID: 187860}
   m_LocalRotation: {x: -0.000000019581186, y: 0.0000023841221, z: -0.008081125, w: 0.99996734}
   m_LocalPosition: {x: -0, y: 0.063863255, z: 2.8876456e-15}
-  m_LocalScale: {x: 1, y: 0.99999994, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 416068}
   m_Father: {fileID: 494062}

@@ -77,7 +77,8 @@ public class IguanaController : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            rbIguana.AddForce(moveDir * data.speed, ForceMode.Force);
+            //rbIguana.AddForce(moveDir * data.speed, ForceMode.Force);
+            transform.position += moveDir * data.speed * Time.deltaTime;
             animPlayer.SetBool("isRun", true);
         }
     }
