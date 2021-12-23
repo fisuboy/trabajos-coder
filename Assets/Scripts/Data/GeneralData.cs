@@ -10,4 +10,6 @@ public class GeneralData : ScriptableObject
     public float visionRange;
     public float speedTurn;
     public float jumpForce;
+    public float attackRange;
+    public int attackDamage;
 }

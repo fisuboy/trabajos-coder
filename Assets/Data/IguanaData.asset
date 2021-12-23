@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 061b6bf1fdc33c24d86f1c5b5f4fa4de, type: 3}
   m_Name: IguanaData
   m_EditorClassIdentifier: 
-  life: -1
-  speed: 7
+  life: 6
+  speed: 10
   visionRange: 0
   speedTurn: 3
   jumpForce: 5
+  attackRange: 0.8
+  attackDamage: 40

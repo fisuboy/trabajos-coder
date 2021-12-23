@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 061b6bf1fdc33c24d86f1c5b5f4fa4de, type: 3}
   m_Name: ScarabData
   m_EditorClassIdentifier: 
-  life: 50
+  life: 100
   speed: 5
   visionRange: 8
   speedTurn: 2
+  jumpForce: 0
+  attackRange: 0
+  attackDamage: 0
