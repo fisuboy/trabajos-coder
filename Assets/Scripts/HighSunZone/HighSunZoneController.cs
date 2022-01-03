@@ -12,16 +12,25 @@ public class HighSunZoneController : MonoBehaviour
     {
         IguanaController.onHighSunZoneEnter += OnHighSunZoneEnterHandler;
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+            iguana.HighSunZone();
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
             iguana.HighSunZone();
-        }
     }
 
     private void OnHighSunZoneEnterHandler()
     {
         iguanaColor.HeatUp(iguanaSMR.material.color);
+    }
+
+    private void OnDestroy()
+    {
+        IguanaController.onHighSunZoneEnter -= OnHighSunZoneEnterHandler;
     }
 }

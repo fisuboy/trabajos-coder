@@ -6,9 +6,10 @@ using System;
 public class IguanaColorController : MonoBehaviour
 {
     [SerializeField] private SkinnedMeshRenderer iguanaSMR;
-    [SerializeField] private float lerpTime;
-    [SerializeField] private Color burnColor;
+    [SerializeField] private float heatUpLerpTime;
+    [SerializeField] private float heatDownLerpTime;
     [SerializeField] private Color normalColor;
+    [SerializeField] private Color burnColor;
     private float hurtCooldown = 2f;
     private float timeToHurt = 0f;
     private bool canHurt = true;
@@ -17,7 +18,9 @@ public class IguanaColorController : MonoBehaviour
 
     private void Update()
     {
-        if (iguanaSMR.material.color.r <= 0.7f && canHurt)            
+        //Debug.Log(iguanaSMR.material.color);
+
+        if (iguanaSMR.material.color.r <= 0.63f && canHurt)            
              SunHurt();
         else
             timeToHurt += Time.deltaTime;
@@ -25,14 +28,17 @@ public class IguanaColorController : MonoBehaviour
         if (timeToHurt >= hurtCooldown)
             canHurt = true;
     }
+    
     public void HeatUp(Color color)
     {
-        iguanaSMR.material.color = Color.Lerp(color, burnColor, lerpTime);
+        //Debug.Log("HeatingUp");
+        iguanaSMR.material.color = Color.Lerp(color, burnColor, heatUpLerpTime * Time.deltaTime);
     }
 
     public void HeatDown(Color color)
     {
-        iguanaSMR.material.color = Color.Lerp(color, normalColor, lerpTime);
+        //Debug.Log("HeatingDown");
+        iguanaSMR.material.color = Color.Lerp(color, normalColor, heatDownLerpTime * Time.deltaTime);
     }
 
     private void SunHurt()

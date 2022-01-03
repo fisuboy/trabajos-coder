@@ -5,6 +5,10 @@ using UnityEngine;
 public class IguanaLifeManager : MonoBehaviour
 {
     [SerializeField] private Transform[] tail;
+    [SerializeField] private GameObject gameOverMenu;
+    [SerializeField] private float regenCooldown;
+    private float timeToRegen = 0f; 
+    private bool canRegen = false;
     private int iguanaLife;    
     private int tailIndex;
 
@@ -12,16 +16,32 @@ public class IguanaLifeManager : MonoBehaviour
     {
         IguanaController.onLifeChange += OnLifeChangeHandler;
     }
-    
+
     private void OnLifeChangeHandler(int life)
     {
-       iguanaLife = life;
+        iguanaLife = life;
+        //Debug.Log(iguanaLife);
     }
-
+    
     void Update()
     {
+        if (canRegen)
+        {
+            iguanaLife++;
+            canRegen = false;
+        }
+        else
+            timeToRegen += Time.deltaTime;
+
+        if (timeToRegen >= regenCooldown)
+            canRegen = true;
+
+            
         switch (iguanaLife)
         {
+            case 7:
+                iguanaLife = 6;
+                break;
             case 6:
                 tailIndex = 0;
                 for (int i = tailIndex; i < tail.Length; i++)
@@ -70,18 +90,18 @@ public class IguanaLifeManager : MonoBehaviour
                 }
                 break;
             case 0:
-                tail[4].localScale = new Vector3(0, 0, 1);
-                tailIndex = 5;
-                for (int i = tailIndex; i < tail.Length; i++)
-                {
-                    tail[i].localScale = new Vector3(1, 1, 1);
-                }
-                Debug.Log("Game Over");
+                Time.timeScale = 0f;
+                gameOverMenu.SetActive(true);
                 break;
 
             default:
-                Debug.Log("VIDA FUERA DEL RANGO");
+                //Debug.Log("VIDA FUERA DEL RANGO");
                 break;
         }
+    }
+   
+    private void OnDestroy()
+    {
+        IguanaController.onLifeChange -= OnLifeChangeHandler;
     }
 }

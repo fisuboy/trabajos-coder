@@ -5,120 +5,81 @@ using System;
 
 public class IguanaController : MonoBehaviour
 {
-    [SerializeField] private Animator animPlayer;
-    [SerializeField] GeneralData data;
-    [SerializeField] private float struckForce;
-   
-    private Rigidbody rbIguana;
+    [SerializeField] private IguanaData iguanaData;
+    private Animator animPlayer;
     private bool inHighSunZone = false;
     
     //Events
     public static event Action<int> onLifeChange;
     public static event Action onHighSunZoneEnter;
-    public static event Action onHighSunZoneExit;
+    public static event Action onSafeZoneEnter;
 
     private void Awake()
     {
-        HornAttackController.onHit += OnHitHandler;
         IguanaColorController.onSunHurt += OnSunHurtHandler;
+        EagleAttack.onPlayerAttacked += OnPlayerAttackedHandler;
     }
+
     void Start()
     {
-        rbIguana = GetComponent<Rigidbody>();
-        data.life = 6;
-        onLifeChange?.Invoke(data.life);
-        //transform.position = new Vector3(280f, 50f, 38f);
-       // Quaternion initialRotation = Quaternion.Euler(0f, -62f, 0);
-       // transform.rotation = initialRotation;
+        animPlayer = GetComponent<Animator>();
+        iguanaData.life = 6;
+        Debug.Log(iguanaData.life);
+        onLifeChange?.Invoke(iguanaData.life);
+        transform.position = new Vector3(93.37f, 30.08f, 566.93f);
+        Quaternion initialRotation = Quaternion.Euler(0f, 416.233f, 0);
+        transform.rotation = initialRotation;
     }
     private void Update()
     {
-        
-
         if (inHighSunZone)
             onHighSunZoneEnter?.Invoke();
         else
-            onHighSunZoneExit?.Invoke();
-
-        
-
-
-
-        //if (Input.GetKey(KeyCode.LeftShift))
-        //    SpeedBoost();
-        //else
-        //    NormalSpeed();
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            GetDamageStruck();
-        }
-
+            onSafeZoneEnter?.Invoke();
+      
         if (Input.GetKeyDown(KeyCode.M))
         {
-            data.life--;
-            onLifeChange?.Invoke(data.life);
+            iguanaData.life++;
+            onLifeChange?.Invoke(iguanaData.life);
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            data.life++;
-            onLifeChange?.Invoke(data.life);
+            iguanaData.life--;
+            onLifeChange?.Invoke(iguanaData.life);
         }
     }
-   
-    private void SpeedBoost()
+    
+    public void GetDamage(int damage)
     {
-        data.speed = 550;
-        animPlayer.speed = 1.68f;
+        iguanaData.life -= damage;
+        onLifeChange?.Invoke(iguanaData.life);
     }
-
-    private void NormalSpeed()
-    {
-        data.speed = 275;
-        animPlayer.speed = 1;
-    }
-
-    private void GetDamageStruck()
-    {
-        float xIndex = UnityEngine.Random.Range(transform.position.x - 10, transform.position.x + 10);
-        //float yIndex = UnityEngine.Random.Range(transform.position.y - 10, transform.position.y);
-        float zIndex = UnityEngine.Random.Range(transform.position.z - 10, transform.position.z + 10);
-        Vector3 struckInitialPoint = new Vector3(xIndex, transform.position.y, zIndex).normalized;
-        Vector3 struckDirection = struckInitialPoint - transform.position;
-        rbIguana.AddForce(struckDirection * struckForce, ForceMode.Impulse);
-    }
-
+    
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.CompareTag("Bullet"))
-        {
-            GetDamage();
-        }
         if (collision.gameObject.layer == 10)
-        {
-            GetDamage();
-            Debug.Log("CACTUS DAMAGE");
-        }
-    }
-
-    public void GetDamage()
-    {
-        data.life--;
-        onLifeChange?.Invoke(data.life);
+            GetDamage(1);
     }
 
     public void HighSunZone()
     {
         inHighSunZone = !inHighSunZone;
-        Debug.Log(inHighSunZone);
-    }
-
-    private void OnHitHandler()
-    {
-        GetDamage();
+        //Debug.Log(inHighSunZone);
     }
 
     private void OnSunHurtHandler()
     {
-        GetDamage();
+        GetDamage(1);
+    }
+
+    private void OnPlayerAttackedHandler()
+    {
+        GetDamage(1);
+    }
+
+    private void OnDestroy()
+    {
+        IguanaColorController.onSunHurt -= OnSunHurtHandler;
+        EagleAttack.onPlayerAttacked -= OnPlayerAttackedHandler;
     }
 }

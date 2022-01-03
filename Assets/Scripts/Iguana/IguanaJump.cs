@@ -4,30 +4,40 @@ using UnityEngine;
 
 public class IguanaJump : MonoBehaviour
 {
-    [SerializeField] private GeneralData data;
-    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private IguanaData iguanaData;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
     private Rigidbody rbIguana;
+    private Animator anim;
 
     void Start()
     {
         rbIguana = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
     }
 
     
     void Update()
     {
+        //Debug.Log(IsGrounded());
         if (IsGrounded() && Input.GetButtonDown("Jump"))
             Jump();
     }
 
     private void Jump()
     {
-        rbIguana.AddForce(Vector3.up * data.jumpForce, ForceMode.Impulse);
+        anim.SetTrigger("Jump");
+        rbIguana.AddForce(Vector3.up * iguanaData.jumpForce, ForceMode.Impulse);
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
-        return Physics.CheckSphere(groundCheck.position, .2f, groundLayer);
+        return Physics.Raycast(groundCheck.position, Vector3.down, iguanaData.rayCastDistance, groundLayer);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(groundCheck.position, new Vector3(0f, -iguanaData.rayCastDistance, 0f));
     }
 }

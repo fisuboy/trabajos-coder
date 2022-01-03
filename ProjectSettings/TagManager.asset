@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Iguana
   - Bullet
+  - Fire
+  - Mossy
+  - Arid
   layers:
   - Default
   - TransparentFX
