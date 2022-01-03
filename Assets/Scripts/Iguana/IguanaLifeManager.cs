@@ -6,9 +6,6 @@ public class IguanaLifeManager : MonoBehaviour
 {
     [SerializeField] private Transform[] tail;
     [SerializeField] private GameObject gameOverMenu;
-    [SerializeField] private float regenCooldown;
-    private float timeToRegen = 0f; 
-    private bool canRegen = false;
     private int iguanaLife;    
     private int tailIndex;
 
@@ -25,18 +22,6 @@ public class IguanaLifeManager : MonoBehaviour
     
     void Update()
     {
-        if (canRegen)
-        {
-            iguanaLife++;
-            canRegen = false;
-        }
-        else
-            timeToRegen += Time.deltaTime;
-
-        if (timeToRegen >= regenCooldown)
-            canRegen = true;
-
-            
         switch (iguanaLife)
         {
             case 7:

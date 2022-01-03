@@ -6,9 +6,11 @@ using System;
 public class IguanaController : MonoBehaviour
 {
     [SerializeField] private IguanaData iguanaData;
-    private Animator animPlayer;
+    [SerializeField] private float regenCooldown;
     private bool inHighSunZone = false;
-    
+    private bool canRegen = false;
+    private float timeToRegen = 0f;
+
     //Events
     public static event Action<int> onLifeChange;
     public static event Action onHighSunZoneEnter;
@@ -22,12 +24,11 @@ public class IguanaController : MonoBehaviour
 
     void Start()
     {
-        animPlayer = GetComponent<Animator>();
         iguanaData.life = 6;
         Debug.Log(iguanaData.life);
         onLifeChange?.Invoke(iguanaData.life);
-        transform.position = new Vector3(93.37f, 30.08f, 566.93f);
-        Quaternion initialRotation = Quaternion.Euler(0f, 416.233f, 0);
+        transform.position = new Vector3(121.8f, 30.3f, 589.7f);
+        Quaternion initialRotation = Quaternion.Euler(0f, 392.614f, 0);
         transform.rotation = initialRotation;
     }
     private void Update()
@@ -36,16 +37,24 @@ public class IguanaController : MonoBehaviour
             onHighSunZoneEnter?.Invoke();
         else
             onSafeZoneEnter?.Invoke();
-      
-        if (Input.GetKeyDown(KeyCode.M))
+       
+        if (iguanaData.life < 6)
         {
-            iguanaData.life++;
-            onLifeChange?.Invoke(iguanaData.life);
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            iguanaData.life--;
-            onLifeChange?.Invoke(iguanaData.life);
+            if (canRegen)
+            {
+                iguanaData.life++;
+                onLifeChange?.Invoke(iguanaData.life);
+                canRegen = false;
+                timeToRegen = 0;
+            }
+            else
+            {
+                timeToRegen += Time.deltaTime;
+                Debug.Log(timeToRegen);
+            }
+
+            if (timeToRegen >= regenCooldown)
+                canRegen = true;
         }
     }
     

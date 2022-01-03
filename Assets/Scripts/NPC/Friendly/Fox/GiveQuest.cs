@@ -7,6 +7,7 @@ public class GiveQuest : MonoBehaviour
 {
     [SerializeField] private GameObject questPanel;
     [SerializeField] private GameObject[] questDialogs;
+    [SerializeField] private IguanaAttack iguanaAttack;
     private int dialogNumber = 0;
     private bool playerInRange = false;
 
@@ -37,6 +38,7 @@ public class GiveQuest : MonoBehaviour
                 break;
 
             case 1:
+                iguanaAttack.enabled = true;
                 questPanel.SetActive(true);
                 questDialogs[0].SetActive(true);
                 questDialogs[1].SetActive(false);
