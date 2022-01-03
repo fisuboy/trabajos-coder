@@ -26,9 +26,9 @@ public class IguanaController : MonoBehaviour
         iguanaData.life = 6;
         Debug.Log(iguanaData.life);
         onLifeChange?.Invoke(iguanaData.life);
-        //transform.position = new Vector3(93.37f, 30.08f, 566.93f);
-        //Quaternion initialRotation = Quaternion.Euler(0f, 416.233f, 0);
-        //transform.rotation = initialRotation;
+        transform.position = new Vector3(93.37f, 30.08f, 566.93f);
+        Quaternion initialRotation = Quaternion.Euler(0f, 416.233f, 0);
+        transform.rotation = initialRotation;
     }
     private void Update()
     {
