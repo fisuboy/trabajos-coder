@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class QuestComplete : MonoBehaviour
 {
+    [SerializeField] private GameObject fairy;
     [SerializeField] private GameObject questPanel;
     [SerializeField] private GameObject[] questDialogs;
     private int dialogNumber = 0;
@@ -50,6 +51,7 @@ public class QuestComplete : MonoBehaviour
                 questDialogs[0].SetActive(false);
                 questDialogs[1].SetActive(false);
                 questDialogs[2].SetActive(true);
+                fairy.SetActive(true);
                 break;
 
             case 4:

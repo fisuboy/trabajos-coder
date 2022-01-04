@@ -76,6 +76,7 @@ public class IguanaLifeManager : MonoBehaviour
                 break;
             case 0:
                 Time.timeScale = 0f;
+                Cursor.visible = true;
                 gameOverMenu.SetActive(true);
                 break;
 

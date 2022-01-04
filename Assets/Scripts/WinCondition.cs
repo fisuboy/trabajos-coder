@@ -8,6 +8,7 @@ public class WinCondition : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Cursor.visible = true;
         winMenu.SetActive(true);
         Time.timeScale = 0f;
     }

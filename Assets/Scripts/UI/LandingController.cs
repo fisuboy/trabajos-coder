@@ -10,7 +10,13 @@ public class LandingController : MonoBehaviour
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject confirmQuitMenu;
     [SerializeField] private AudioMixer audioMixer;
- 
+    [SerializeField] private Texture2D cursorArrow;
+
+    private void Start()
+    {
+        Cursor.SetCursor(cursorArrow, Vector2.zero, CursorMode.ForceSoftware);
+    }
+
     public void NewGame()
     {
         SceneManager.LoadScene(1);

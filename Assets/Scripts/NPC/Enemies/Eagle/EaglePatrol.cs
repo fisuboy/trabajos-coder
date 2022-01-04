@@ -15,7 +15,7 @@ public class EaglePatrol : MonoBehaviour
 
     private void Patrol()
     {
-        Vector3 deltaVector = new Vector3(patrolPoint.position.x, patrolPoint.position.y + 10f, patrolPoint.position.z) - transform.position;
+        Vector3 deltaVector = new Vector3(patrolPoint.position.x, patrolPoint.position.y + 15f, patrolPoint.position.z) - transform.position;
         Vector3 direction = deltaVector.normalized;
         transform.forward = Vector3.Lerp(transform.forward, direction, rotationSpeed * Time.deltaTime);
         transform.position += transform.forward * speed * Time.deltaTime;

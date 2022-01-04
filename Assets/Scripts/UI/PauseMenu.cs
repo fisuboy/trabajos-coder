@@ -13,21 +13,30 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private IguanaAttack iguanaAttack;
     [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private Texture2D cursorArrow;
     [SerializeField] private int scene;
     public static bool gameIsPause = false;
 
     private void Start()
     {
+        Cursor.visible = false;
         Time.timeScale = 1f;
+        Cursor.SetCursor(cursorArrow, Vector2.zero, CursorMode.ForceSoftware);
     }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (gameIsPause)
+            {
                 Resume();
+                Cursor.visible = false;
+            }
             else
+            {
+                Cursor.visible = true;
                 Pause();
+            }
         }
     }
 
