@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-    [SerializeField] private Transform closePoint;
-    [SerializeField] private Transform openPoint;
-    [SerializeField] private float lerpSpeed;
-    [SerializeField] private float speed;
     private Animator anim;
     private bool aridActivate = false;
     private bool mossyActivate = false;
@@ -29,11 +25,18 @@ public class DoorController : MonoBehaviour
     {
         if (aridActivate && mossyActivate)
             OpenDoor();
+        else
+            CloseDoor();
     }
 
     private void OpenDoor()
     {
-        this.gameObject.SetActive(false);
+        anim.SetBool("isOpen", true);
+    }
+
+    private void CloseDoor()
+    {
+        anim.SetBool("isOpen", false);
     }
 
     private void OnMossyActivateHandler()
